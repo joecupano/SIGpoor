@@ -1,0 +1,22 @@
+#!/bin/sh -e
+#
+# simple-ax25.rc.local
+#
+# This script sets up simple TNC to PC connection via serial
+#
+
+# Print the IP address
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
+#
+# SIGpoor adds
+#
+
+/sbin/modprobe ax25                    # Load ax.25 kernel module
+/usr/sbin/kissattach /dev/ttyUSB0 ax0  # Create the AX.25 interface
+/usr/sbin/ax25d                        # Start ax.25 service and start listening
+
+exit 0

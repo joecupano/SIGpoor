@@ -1,0 +1,18 @@
+   _____ __________                      
+  / ___//  _/ ____/___  ____  ____  _____
+  \__ \ / // / __/ __ \/ __ \/ __ \/ ___/
+ ___/ // // /_/ / /_/ / /_/ / /_/ / /    
+/____/___/\____/ .___/\____/\____/_/     
+              /_/                                                                           
+Welcome to SIGpoor Node
+
+This script builds a head-less SDR server on Raspberry Pi OS Lite
+"Bullseye" (32bit) systems. Drivers for RTL-SDR, HackRF, PlutoSDR,
+LimeSDR, and associated SoapySDR installed by default.
+
+SIGpoor Node includes the following:
+
+- RTL_433, Dump1090, mulitmonitor-ng, and radiosonde,
+- Given the option to run RTL_TCP or SoapySDR servers on startup.
+
+Let's begin.

@@ -1,0 +1,8 @@
+# /etc/ax25/axports
+#
+# The format of this file is:
+#
+# name callsign speed paclen window description
+#
+
+ax0	CALLSIGN-N		1200	255	2	144.503 MHz (1200  bps)

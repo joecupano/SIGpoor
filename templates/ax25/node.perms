@@ -1,0 +1,24 @@
+# /etc/ax25/node.perms - LinuxNode permissions file
+#
+# see node.perms(5)
+
+# user	type	port	passwd	perms
+CALLSIGN * * CHANGEMENOW 255
+
+# User CALLSIGN can login without password from anywhere else but 'inet'.
+#
+#CALLSIGN	inet	*	qwerty	95
+#CALLSIGN	*	*	*	95
+
+# CALLSIGN is a bbs so it needs escape disabled.
+#
+#CALLSIGN	*	*	*	287
+
+# Default permissions per connection type.
+#
+*	ax25	*	*	31
+*	netrom	*	*	31
+*	local	*	*	31
+*	ampr	*	*	31
+*	inet	*	*	0
+*	host	*	*	31

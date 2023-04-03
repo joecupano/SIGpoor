@@ -1,0 +1,49 @@
+#!/bin/sh -e
+#
+# network-ax25.rc.loca
+#
+# AXIP is a protocol for routing AX.25 frames over IP. 
+# It is most commonly used as a long-haul backbone link between two AX.25 packet nodes.
+# ax25ipd is the Linux program that implements this.
+#
+# ax25ipd is really an IP-KISS gateway. KISS is the stream protocol designed for serial port
+# use between a TNC and PC, but is also used in some of the Linux AX.25 programs as
+# a virtual link protocol.
+#
+# How it works:
+#
+#    Use kissnetd to set up a KISS bridge
+#    Use kissattach to connect one end of this bridge to the AX.25 kernel stack
+#    Use ax25ipd to connect the other end to one or more IP destinations
+
+#
+# LOAD MODULES
+#
+/sbin/modprobe ax25                  # Load ax.25 kernel module
+sudo sysctl net.ipv4.ip_forward=1
+tmpfile="/tmp/$$.startipd.pts"
+
+# Generate two ports
+kissnetd -p2 > "$tmpfile" &
+sleep 2
+
+attachthem () {
+    read PTS1 PTS2
+    echo "Starting ipd on $PTS1 and $PTS2"
+    sed -i "s/MYAXP/$PTS1/g" /etc/ax25/axports
+    kissattach /dev/ttyUSB0 $PTS1
+    sleep 1
+    sed -i "s,device /dev/.*$,device $PTS2," /etc/ax25/ax25ipd.conf
+    ax25ipd -c /etc/ax25/ax25ipd.conf
+}
+
+tail -n 1 $tmpfile | attachthem
+rm $tmpfile
+
+# Print the IP address
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
+exit 0
