@@ -6,9 +6,10 @@
               /_/                                                                           
 Welcome to SIGpoor Node
 
-This script builds a head-less SDR server on Raspberry Pi OS Lite
-"Bullseye" (32bit) systems. Drivers for RTL-SDR, HackRF, PlutoSDR,
-LimeSDR, and associated SoapySDR installed by default.
+This script builds a simple packet (ax/25) and SDR server on Raspberry Pi OS Lite (32-bit)
+
+It uses the standard Linux tools for AX.25 and install support for RTLSDR and HackRF by default.
+Other SDR devics are support with optional instrall in subsequent menu.
 
 SIGpoor Node includes the following:
 

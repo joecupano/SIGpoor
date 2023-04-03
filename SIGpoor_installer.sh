@@ -108,8 +108,8 @@ select_devices() {
 select_sdrserver() {
     FUN=$(whiptail --title "SIGpoor Installer" --clear --checklist --separate-output \
         "Choose which SDR server to run as a service" 20 80 12 \
-        "rtltcpsrv" "RTL-TCP Server           " OFF \
-        "soapysdrsrv" "SoapySDR Server           " OFF \
+        "rtltcpsrv" "RTL-TCP Server                     " OFF \
+        "soapysdrsrv" "SoapySDR Server                     " OFF \
 		3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
