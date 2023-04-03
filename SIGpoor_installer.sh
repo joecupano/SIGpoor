@@ -12,8 +12,8 @@
 ###  Usage:    SIGpoor_installer  [CALLSIGN] [PASSWORD] 
 ###
 ###  where:
-###            CALLSIGN if using PacketNode
-###            PASSWORD to be used to login into PacketNode
+###            CALLSIGN if using ax.25
+###            PASSWORD to be used to login into ax25-node
 ###
 
 ###
