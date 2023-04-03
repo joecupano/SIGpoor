@@ -86,7 +86,7 @@ select_startscreen(){
 
 select_devices() {
     FUN=$(whiptail --title "SIGpoor Installer" --clear --checklist --separate-output \
-        "RTLSDR and HackRF supported included by default. Choose additional SDR devices " 20 80 12 \
+        "RTLSDR and HackRF supported included by default. Choose additional SDR devices if need be" 20 100 12 \
         "bladerf" "bladeRF " OFF \
         "limesuite" "LimeSDR " OFF \
         "sdrplay" "SDRPlay " OFF \
@@ -106,7 +106,7 @@ select_devices() {
 
 select_sdrserver() {
     FUN=$(whiptail --title "SIGpoor Installer" --clear --checklist --separate-output \
-        "Choose which SDR server to run as a service" 20 120 12 \
+        "Choose which SDR server to run as a service" 20 80 12 \
         "rtltcpsrv" "RTL-TCP Server " OFF \
         "soapysdrsrv" "SoapySDR Server " OFF \
 		3>&1 1>&2 2>&3)
@@ -124,7 +124,7 @@ select_sdrserver() {
 
 select_packetmode() {
     FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
-        "Choose desired AX.25 settings (USB-Serial attached TNC in KISS Mode assumed)" 20 120 12 \
+        "Choose desired AX.25 settings (USB-Serial attached TNC in KISS Mode assumed)" 20 80 12 \
         "no-ax25" "No AX.25 support " \
         "simple-ax25" "ax0 interface only " \
         "network-ax25" "ax0 plus AXIP support " \
@@ -158,7 +158,7 @@ cd $SIGPI_SOURCE
 ##
 
 calc_wt_size
-select_startsrvscreen
+select_startscreen
 select_devices
 select_sdrserver
 select_packetmode
