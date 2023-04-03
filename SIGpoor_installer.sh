@@ -89,6 +89,7 @@ select_devices() {
         "RTLSDR and HackRF supported included by default. Choose additional SDR devices if need be" 20 100 12 \
         "bladerf" "bladeRF " OFF \
         "limesuite" "LimeSDR " OFF \
+        "pluto" "Pluto SDR " OFF \
         "sdrplay" "SDRPlay " OFF \
         "rfm95w" "Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
         3>&1 1>&2 2>&3)
@@ -191,6 +192,10 @@ fi
 # Install LimeSDR
 if grep limesuite "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_limesuite install
+fi
+# Install PlutoSDR
+if grep pluto "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_plutosdr install
 fi
 # Install SDRPlay
 if grep sdrplay "$SIGPI_INSTALLER"; then

@@ -41,19 +41,6 @@ sudo pip3 install pyrtlsdr
 ## HackRF
 sudo apt-get install -y libusb-1.0-0-dev 
 sudo apt-get install -y libfftw3-dev
-## PlutoSDR
-sudo apt-get install -y libaio-dev 
-sudo apt-get install -y libusb-1.0-0-dev 
-sudo apt-get install -y libserialport-dev
-sudo apt-get install -y libavahi-client-dev 
-sudo apt-get install -y libxml2-dev bison flex libcdk5-dev 
-## LimeSDR
-sudo apt-get install -y swig
-sudo apt-get install -y libsqlite3-dev
-sudo apt-get install -y libi2c-dev
-sudo apt-get install -y libusb-1.0-0-dev
-sudo apt-get install -y liboctave-dev
-sudo apt-get install -y libfltk1.3-dev
 ## SoapySDR 
 sudo apt-get install -y swig
 sudo apt-get install -y avahi-daemon
