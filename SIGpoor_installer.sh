@@ -87,11 +87,11 @@ select_startscreen(){
 select_devices() {
     FUN=$(whiptail --title "SIGpoor Installer" --clear --checklist --separate-output \
         "RTLSDR and HackRF supported included by default. Choose additional SDR devices if need be" 20 100 12 \
-        "bladerf" "bladeRF " OFF \
-        "limesuite" "LimeSDR " OFF \
-        "pluto" "Pluto SDR " OFF \
-        "sdrplay" "SDRPlay " OFF \
-        "rfm95w" "Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
+        "bladerf" "bladeRF        " OFF \
+        "limesuite" "LimeSDR        " OFF \
+        "pluto" "Pluto SDR        " OFF \
+        "sdrplay" "SDRPlay        " OFF \
+        "rfm95w" "Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz        " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -108,8 +108,8 @@ select_devices() {
 select_sdrserver() {
     FUN=$(whiptail --title "SIGpoor Installer" --clear --checklist --separate-output \
         "Choose which SDR server to run as a service" 20 80 12 \
-        "rtltcpsrv" "RTL-TCP Server " OFF \
-        "soapysdrsrv" "SoapySDR Server " OFF \
+        "rtltcpsrv" "RTL-TCP Server           " OFF \
+        "soapysdrsrv" "SoapySDR Server           " OFF \
 		3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
