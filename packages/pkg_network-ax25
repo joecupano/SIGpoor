@@ -67,7 +67,6 @@ case "$1" in
         sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/node.conf
 
         sudo sed -i "s/CALLSIGN/$CALLSIGN/g" /etc/ax25/node.perms
-        sudo sed -i "s/CHANGEMENOW/$NEWPASSWORD/g" /etc/ax25/node.perms
         
         sudo echo "ax25-node       7373/tcp        # $CALLSIGN packet node" >> /etc/services
         sudo echo "ax25-node stream tcp nowait root /usr/sbin/ax25-node ax25-node" >> /etc/inetd.conf

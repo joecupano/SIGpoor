@@ -3,13 +3,13 @@
 ###
 ### SIGPI
 ###
-### pkg_simple-ax25
+### pkg-ax25
 ###
 
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Simple AX25"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove AX25"
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove ax25-tools ax25-node ax25-apps libax25 libncurses5 telnet
@@ -17,12 +17,12 @@ case "$1" in
         sudo sed -i '$d' /etc/inetd.conf
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Simple AX25 Removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   AX25 Removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Simple AX25"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge AX25"
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge ax25-tools ax25-node ax25-apps libax25 libncurses5 telnet
@@ -33,50 +33,50 @@ case "$1" in
         sudo mv /etc/org.rc.local /etc/rc.local
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Simple AX25 Purged"
+        echo -e "${SIGPI_BANNER_COLOR} ##   AX25 Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Simple AX25"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install AX25"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
         ## DEPENDENCIES
         sudo apt-get install -y ax25-tools ax25-node ax25-apps libax25 libncurses5 telnet
-        
-        ##
-        ## INSTALL & CONFIGURE PACKETNODE
-        ##
 
-        CALLSIGN = $2
-        SSID = "-1"
-        STATION = "$CALLSIGN$SSID"
-        NEWPASSWORD = $3
-
+        ## CONFIGURATION
         sudo mkdir /etc/ax25/org && sudo mv /etc/ax25/* /etc/ax25/org
         sudo cp $SIGPI_AX25FILES/* /etc/ax25
         sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/axports
         sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/nrports
         
         sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/ax25d.conf
+        sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/ax25ipd.conf
         sudo sed -i "s/ALIAS/$CALLSIGN/g" /etc/ax25/ax25d.conf     
 
         sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/node.conf
         sudo sed -i "s/CALLSIGN/$CALLSIGN/g" /etc/ax25/node.perms
-        sudo sed -i "s/CHANGEMENOW/$NEWPASSWORD/g" /etc/ax25/node.perms
         
         sudo echo "ax25-node       7373/tcp        # $CALLSIGN packet node" >> /etc/services
         sudo echo "ax25-node stream tcp nowait root /usr/sbin/ax25-node ax25-node" >> /etc/inetd.conf
         sudo service inetd restart
+        
+        ## STARTUP
+        if grep simple-ax25 "$SIGPI_INSTALLER"; then
+            sudo mv /etc/rc.local /etc/org.rc.local
+            sudo cp $SIGPI_SCRIPTS/simple-ax25.rc.local /etc/rc.local
+        fi
 
-        sudo mv /etc/rc.local /etc/org.rc.local
-        sudo cp $SIGPI_SCRIPTS/simple-ax25.rc.local /etc/rc.local
+        if grep network-ax25 "$SIGPI_INSTALLER"; then
+            sudo mv /etc/rc.local /etc/org.rc.local
+            sudo cp $SIGPI_SCRIPTS/network-ax25.rc.local /etc/rc.local
+        fi
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Simple AX25 Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   AX25 Installed"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;

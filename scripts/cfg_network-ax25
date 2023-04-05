@@ -1,0 +1,40 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### cfg_network-ax25
+###
+
+CALLSIGN = $2
+SSID = "-1"
+STATION = "$CALLSIGN$SSID"
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##  Configure Network AX25"
+echo -e "${SIGPI_BANNER_RESET}"
+
+sudo mkdir /etc/ax25/org && sudo mv /etc/ax25/* /etc/ax25/org
+sudo cp $SIGPI_AX25FILES/* /etc/ax25
+sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/axports
+sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/nrports
+
+sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/ax25d.conf
+sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/ax25ipd.conf
+sudo sed -i "s/ALIAS/$CALLSIGN/g" /etc/ax25/ax25d.conf     
+
+sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/node.conf
+sudo sed -i "s/CALLSIGN/$CALLSIGN/g" /etc/ax25/node.perms
+
+sudo echo "ax25-node       7373/tcp# $CALLSIGN packet node" >> /etc/services
+sudo echo "ax25-node stream tcp nowait root /usr/sbin/ax25-node ax25-node" >> /etc/inetd.conf
+sudo service inetd restart
+
+sudo mv /etc/rc.local /etc/org.rc.local
+sudo cp $SIGPI_SCRIPTS/network-ax25.rc.local /etc/rc.local
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Network-AX25 Installed"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"

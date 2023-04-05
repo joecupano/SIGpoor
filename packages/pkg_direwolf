@@ -11,16 +11,12 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove DireWolf"
         echo -e "${SIGPI_BANNER_RESET}"
+
         cd $SIGPI_SOURCE/direwolf/build
         sudo make uninstall
         cd $SIGPI_SOURCE
     	rm -rf $SIGPI_SOURCE/DireWolf
         sed -i /direwolf/d $SIGPI_CONFIG
-	
-	### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/direwolf.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/direwolf.desktop
 	
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Removed"
@@ -30,22 +26,19 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge DireWolf"
         echo -e "${SIGPI_BANNER_RESET}"
+        
         cd $SIGPI_SOURCE/direwolf/build
         sudo make uninstall
         cd $SIGPI_SOURCE
-	rm -rf $SIGPI_SOURCE/DireWolf
+        rm -rf $SIGPI_SOURCE/DireWolf
         sed -i /direwolf/d $SIGPI_CONFIG
+        
         sudo rm /usr/local/share/doc/direwolf/scripts/dw-start.sh 
         sudo rm /usr/local/bin/run_direwolf.sh
         sudo rm -rf /usr/local/share/doc/direwolf/conf/* 
         sudo rm -rf /usr/local/etc/direwolf
         
-	### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/direwolf.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/direwolf.desktop
-	
-	echo -e "${SIGPI_BANNER_COLOR}"
+	    echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
