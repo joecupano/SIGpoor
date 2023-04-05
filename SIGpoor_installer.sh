@@ -310,18 +310,19 @@ fi
 ##
 
 # Install AX.25
-source $SIGPI_PACKAGES/pkg_ax25 install
+source $SIGPI_PACKAGES/pkg_ax25 install $1
 # Install Direwolf (AX.25 AFSK APRS)
 if grep softtnc "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_direwolf install $1
 fi
-# Config Simple AX25 with CALLSIGN from args
+# If AX.25 on startup
 if grep simple-ax25 "$SIGPI_INSTALLER"; then
-    source $SIGPI_SCRIPTS/cfg_simple-ax25 install $1
+    sudo mv /etc/rc.local /etc/org.rc.local
+    sudo cp $SIGPI_SCRIPTS/simple-ax25.rc.local /etc/rc.local
 fi
-# Config Network AX25 with CALLSIGN  from args
 if grep network-ax25 "$SIGPI_INSTALLER"; then
-    source $SIGPI_SCRIPTS/cfg_network-ax25 install $1
+    sudo mv /etc/rc.local /etc/org.rc.local
+    sudo cp $SIGPI_SCRIPTS/network-ax25.rc.local /etc/rc.local
 fi
 
 ##
