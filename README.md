@@ -19,12 +19,11 @@ cd ~
 mkdir ~/SIG && cd ~/SIG
 git clone https://github.com/joecupano/SIGpoor.git
 cd SIGpoor
-./SIGpoor_installer.sh [CALLSIGN] [PASSWORD] 
+./SIGpoor_installer.sh [CALLSIGN]
 ```
 
  whereas:
             CALLSIGN if using Packet
-            PASSWORD to be used to login into Packet
 
 
 During installation you will have the option to run either RTL-TCP or SoapySDR server on startup 
