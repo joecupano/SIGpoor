@@ -143,8 +143,8 @@ select_tncdevices() {
 }
 
 select_packetmode() {
-    FUN=$(whiptail --title "AX.25 Packet" --clear --checklist --separate-output \
-        "Choose desired AX.25 settings" 20 80 12 OFF \
+    FUN=$(whiptail --title "AX.25 Configure" --clear --checklist --separate-output \
+        "Choose desired AX.25 setting" 20 80 12 OFF \
         "no-ax25" "No AX.25 support " OFF \
         "simple-ax25" "ax0 interface only " OFF \
         "network-ax25" "ax0 plus AXIP support " OFF \
@@ -204,6 +204,7 @@ select_sdrserver
 select_tncdevices
 select_packetmode
 select_usefultools
+
 TERM=ansi whiptail --title "SIGpoor Install" --clear --msgbox "Ready to Install" 12 120
 
 ##
