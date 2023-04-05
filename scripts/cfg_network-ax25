@@ -6,10 +6,6 @@
 ### cfg_network-ax25
 ###
 
-CALLSIGN = $2
-SSID = "-1"
-STATION = "$CALLSIGN$SSID"
-
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##  Configure Network AX25"
 echo -e "${SIGPI_BANNER_RESET}"

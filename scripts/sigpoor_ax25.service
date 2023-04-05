@@ -1,16 +1,15 @@
 [Unit]
-Description=SIGpoor (RTL_TCP)
+Description=SIGpoor AX.25 Service
 
 Wants=network-online.target
 After=network-online.target
 
 [Service]
+Type=oneshot
+RemainAfterExit=yes
 ExecStartPre=/bin/sleep 15
 ExecStart=/bin/sh -c "rtl_tcp -a $(hostname -I)"
 WorkingDirectory=/home/pi
-StandardOutput=inherit
-StandardError=inherit
-Restart=always
 
 [Install]
 WantedBy=multi-user.target

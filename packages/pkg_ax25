@@ -65,17 +65,6 @@ case "$1" in
         echo "ax25-node stream tcp nowait root /usr/sbin/ax25-node ax25-node" | sudo tee -a /etc/inetd.conf
         sudo service inetd restart
         
-        ## STARTUP
-        if grep simple-ax25 "$SIGPI_INSTALLER"; then
-            sudo mv /etc/rc.local /etc/org.rc.local
-            sudo cp $SIGPI_SCRIPTS/simple-ax25.rc.local /etc/rc.local
-        fi
-
-        if grep network-ax25 "$SIGPI_INSTALLER"; then
-            sudo mv /etc/rc.local /etc/org.rc.local
-            sudo cp $SIGPI_SCRIPTS/network-ax25.rc.local /etc/rc.local
-        fi
-
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR} ##   AX25 Installed"

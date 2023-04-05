@@ -1,5 +1,5 @@
 [Unit]
-Description=SigPoor (SoapySDRServer)
+Description=SIGpoor (SoapySDRServer)
 
 Wants=network-online.target
 After=network-online.target
