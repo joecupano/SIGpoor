@@ -17,7 +17,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 sudo apt-get install -y build-essential pkg-config git cmake g++ gcc autoconf automake libtool 
 sudo apt-get install -y libssl-dev libavahi-client-dev libavahi-common-dev libaio-dev
 sudo apt-get install -y libtool libudev1 libusb-1.0-0 libusb-1.0-0-dev libusb-dev
-sudo apt-get install -y libsamplerate-dev
+sudo apt-get install -y libsamplerate-dev net-tools
 
 # Python Baseline
 sudo apt-get install -y python3-pip

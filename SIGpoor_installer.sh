@@ -5,15 +5,14 @@
 ###
 
 ###
-###  REVISION: 20230330-2300
+###  REVISION: 202300404-2300
 ###
 
 ###
-###  Usage:    SIGpoor_installer  [CALLSIGN] [PASSWORD] 
+###  Usage:    SIGpoor_installer  [CALLSIGN] 
 ###
 ###  where:
 ###            CALLSIGN if using ax.25
-###            PASSWORD to be used to login into ax25-node
 ###
 
 ###
@@ -162,6 +161,28 @@ select_packetmode() {
     done
 }
 
+select_usefultools() {
+    FUN=$(whiptail --title "Optional Tools" --clear --checklist --separate-output \
+        "Only select these tools if you know you will need them" 24 120 12 \
+        "dump1090" " Mode S decoder" OFF \
+        "hamlib" "Ham Radio Control Libraries 4.5.3 " OFF \
+        "kismet" "A sniffer for Wi-Fi, Bluetooth, Zigbee, RF, and more " OFF \
+        "linpac" "AX.25 kbd-kbd chat and PBBS program " OFF \
+        "multimon-ng" "Decoder for POCSAG512 POCSAG1200 POCSAG2400 AFSK DTMF CW X10ers " OFF \
+        "ubertooth" "Ubertooth Tools for Bluetooth " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_INSTALLER
+    done
+}
+
 ###
 ###  MAIN
 ###
@@ -180,7 +201,9 @@ calc_wt_size
 select_startscreen
 select_sdrdevices
 select_sdrserver
+select_tncdevices
 select_packetmode
+select_usefultools
 TERM=ansi whiptail --title "SIGpoor Install" --clear --msgbox "Ready to Install" 12 120
 
 ##
@@ -277,12 +300,38 @@ source $SIGPI_PACKAGES/pkg_radiosonde install
 ## Install SDR cmdline apps
 ##
 
-# Install Ubertooth Tools
-source $SIGPI_PACKAGES/pkg_ubertooth-tools install
 # Install RTL_433
 source $SIGPI_PACKAGES/pkg_rtl_433 install
+
+##
+## Install Optional Tools
+##
+
 # Install Dump1090
-source $SIGPI_PACKAGES/pkg_dump1090 install
+if grep bladerf "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_dump1090 install
+fi
+# Install Hamlib
+if grep hamlib "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_hamlib install
+fi
+# Install Kismet
+if grep kismet "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_kismet install
+fi
+# Install Linpac
+if grep linpac "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_linpac install
+fi
+# Install Multimon-NG
+if grep multimon-ng "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_multimon-ng install
+fi
+# Install Ubertooth Tools
+if grep ubertooth "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_ubertooth-tools install
+fi
+
 
 ##
 ## Setup SDR servers if requested
