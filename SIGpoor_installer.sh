@@ -123,10 +123,31 @@ select_sdrserver() {
     done
 }
 
+select_optdecoders() {
+    FUN=$(whiptail --title "Optional SDR Decoders" --clear --checklist --separate-output \
+        "Select optional signal decoders" 20 80 12 \
+        "aptdec" "APTdec (NOAA APT)                     " OFF \
+        "codec2" "Codec 2. low-bitrate open source speech audio codec        " OFF \
+        "dsdcc" "DSDcc (Digital Speech Decoder)             " OFF \
+        "mbelib" "MBelib P25 Phase 1 and ProVoice vocoder      " OFF \
+        "radiosonde" "Radiosonde (Atmospheric Telemetry)     " OFF \
+        "serialdv" "AMBE3000 chip serial control              " OFF \
+		3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_INSTALLER
+    done
+}
+
 select_tncdevices() {
     FUN=$(whiptail --title "AX.25 Device" --clear --checklist --separate-output \
         "Which type of TNC will you be using" 20 100 12 \
-        "notnc" "No TNC         " OFF \
         "serialtnc" "Serial-attached TNC         " OFF \
         "softtnc" "Software TNC (Direwolf)        " OFF \
         3>&1 1>&2 2>&3)
@@ -145,7 +166,6 @@ select_tncdevices() {
 select_packetmode() {
     FUN=$(whiptail --title "AX.25 Configure" --clear --checklist --separate-output \
         "Choose desired AX.25 setting" 20 80 12 \
-        "no-ax25" "No AX.25 support " OFF \
         "simple-ax25" "ax0 interface only " OFF \
         "network-ax25" "ax0 plus AXIP support " OFF \
 		3>&1 1>&2 2>&3)
@@ -201,6 +221,7 @@ calc_wt_size
 select_startscreen
 select_sdrdevices
 select_sdrserver
+select_optdecoders
 select_tncdevices
 select_packetmode
 select_usefultools
@@ -257,45 +278,51 @@ if grep rfm95w "$SIGPI_INSTALLER"; then
 fi
 
 ##
-## Install TNC (packet) devices if requested
-##
-
-# Are we supporting packet or not
-if ! grep notnc "$SIGPI_INSTALLER"; then
-    source $SIGPI_SCRIPTS/pkg_ax25 install
-    # Install Simple AX25 with CALLSIGN and PASSWORD from args
-    if grep simple-ax25 "$SIGPI_INSTALLER"; then
-        source $SIGPI_PACKAGES/cfg_simple-ax25 install $1
-    fi
-    # Install Network AX25 with CALLSIGN and PASSWORD from args
-    if grep network-ax25 "$SIGPI_INSTALLER"; then
-        source $SIGPI_PACKAGES/cfg_network-ax25 install $1
-    fi
-    # Install Direwolf (AX.25 AFSK APRS)
-    if grep simple-direwolf "$SIGPI_INSTALLER"; then
-        source $SIGPI_PACKAGES/pkg_direwolf install $1
-        source $SIGPI_PACKAGES/cfg_simple-ax25 install $1
-    fi
-fi
-
-##
-## Install Various Decoders
+## Install Optional decoders
 ##
 
 # Install APTdec (NOAA APT)
-source $SIGPI_PACKAGES/pkg_aptdec install
+if grep aptdec "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_aptdec install
+fi
 # Install cm256cc
 source $SIGPI_PACKAGES/pkg_cm256cc install
+
 # Install mbelib (P25 Phase)
-source $SIGPI_PACKAGES/pkg_mbelib install
+if grep mbelib "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_mbelib install
+fi
 # Install SeriaDV (AMBE3000 chip serial control)
-source $SIGPI_PACKAGES/pkg_serialdv install
-# Install DSDcc (Digital Speech Decoder)
-source $SIGPI_PACKAGES/pkg_dsdcc install
+if grep serialdv "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_serialdv install
+fi
 # Install Codec 2
-source $SIGPI_PACKAGES/pkg_codec2 install
+if grep codec2 "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_codec2 install
+fi
 # Install Radiosonde (Atmospheric Telemetry)
-source $SIGPI_PACKAGES/pkg_radiosonde install
+if grep radiosonde "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_radiosonde install
+fi
+
+##
+## Install AX.25 and device configurations
+##
+
+# Install AX.25
+source $SIGPI_SCRIPTS/pkg_ax25 install
+# Install Direwolf (AX.25 AFSK APRS)
+if grep softtnc "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_direwolf install $1
+fi
+# Config Simple AX25 with CALLSIGN from args
+if grep simple-ax25 "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/cfg_simple-ax25 install $1
+fi
+# Config Network AX25 with CALLSIGN  from args
+if grep network-ax25 "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/cfg_network-ax25 install $1
+fi
 
 ##
 ## Install SDR cmdline apps
@@ -332,7 +359,6 @@ fi
 if grep ubertooth "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_ubertooth-tools install
 fi
-
 
 ##
 ## Setup SDR servers if requested
