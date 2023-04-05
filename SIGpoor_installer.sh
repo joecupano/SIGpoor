@@ -249,8 +249,8 @@ source $SIGPI_SCRIPTS/install_dependencies.sh
 source $SIGPI_SCRIPTS/install_core_devices.sh
 
 # Copy SIGpi commands into /usr/local/bin
-sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell.sh /usr/local/bin/SIGpi_exec-in-shell 
-sudo cp $SIGPI_HOME/scripts/SIGpi.sh /usr/local/bin/SIGpi
+sudo cp $SIGPI_HOME/scripts/SIGpoor_exec-in-shell.sh /usr/local/bin/SIGpoor_exec-in-shell 
+sudo cp $SIGPI_HOME/scripts/SIGpoor.sh /usr/local/bin/SIGpoor
 
 ##
 ## SDR Additional Devices

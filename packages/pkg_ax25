@@ -44,8 +44,9 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         
         ## DEPENDENCIES
-        sudo apt-get install -y ax25-tools ax25-node ax25-apps libax25 libncurses5 telnet
-        sudo apt-get install -y ax25-node  # ax25-node package specific tp Raspbian. Weird.
+        sudo apt-get install -y ax25-tools ax25-apps libax25 libncurses5 telnet
+        sudo apt-get install -y ax25-node  # ax25-node package specific to Raspbian
+        #sudo apt-get install -y uronode   # For Ubuntu uronode replaces ax25-node package
 
         ## CONFIGURATION
         sudo mkdir /etc/ax25/org && sudo mv /etc/ax25/* /etc/ax25/org
@@ -60,8 +61,8 @@ case "$1" in
         sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/node.conf
         sudo sed -i "s/CALLSIGN/$CALLSIGN/g" /etc/ax25/node.perms
         
-        sudo echo "ax25-node       7373/tcp        # $CALLSIGN packet node" >> /etc/services
-        sudo echo "ax25-node stream tcp nowait root /usr/sbin/ax25-node ax25-node" >> /etc/inetd.conf
+        echo "ax25-node       7373/tcp        # $CALLSIGN packet node" | sudo tee -a /etc/services
+        echo "ax25-node stream tcp nowait root /usr/sbin/ax25-node ax25-node" | sudo tee -a /etc/inetd.conf
         sudo service inetd restart
         
         ## STARTUP
