@@ -144,10 +144,10 @@ select_tncdevices() {
 
 select_packetmode() {
     FUN=$(whiptail --title "AX.25 Packet" --clear --checklist --separate-output \
-        "Choose desired AX.25 settings" 20 80 12 \
-        "no-ax25" "No AX.25 support " \
-        "simple-ax25" "ax0 interface only " \
-        "network-ax25" "ax0 plus AXIP support " \
+        "Choose desired AX.25 settings" 20 80 12 OFF \
+        "no-ax25" "No AX.25 support " OFF \
+        "simple-ax25" "ax0 interface only " OFF \
+        "network-ax25" "ax0 plus AXIP support " OFF \
 		3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
