@@ -45,11 +45,14 @@ case "$1" in
         
         ## DEPENDENCIES
         sudo apt-get install -y ax25-tools ax25-apps libax25 libncurses5 telnet
-        sudo apt-get install -y ax25-node  # ax25-node package specific to Raspbian
-        #sudo apt-get install -y uronode   # For Ubuntu uronode replaces ax25-node package
+        # ax25-node package is specific to Raspbian. Otherwise use node for other Linux OS
+        if [ "$SIGPI_OSNAME" =~ "Debian" ]; then
+            sudo apt-get install -y ax25-node  
+        fi
 
         ## CONFIGURATION
-        sudo mkdir /etc/ax25/org && sudo mv /etc/ax25/* /etc/ax25/org
+        sudo mkdir /etc/ax25/org
+        sudo mv /etc/ax25/* /etc/ax25/org
         sudo cp $SIGPI_AX25FILES/* /etc/ax25
         sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/axports
         sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/nrports
