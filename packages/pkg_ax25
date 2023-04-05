@@ -45,6 +45,7 @@ case "$1" in
         
         ## DEPENDENCIES
         sudo apt-get install -y ax25-tools ax25-node ax25-apps libax25 libncurses5 telnet
+        sudo apt-get install -y ax25-node  # ax25-node package specific tp Raspbian. Weird.
 
         ## CONFIGURATION
         sudo mkdir /etc/ax25/org && sudo mv /etc/ax25/* /etc/ax25/org

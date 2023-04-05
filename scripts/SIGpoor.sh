@@ -1,11 +1,11 @@
 #!/bin/bash
 
 ###
-### SIGpi_shell
+### SIGpoor_shell
 ###
 
 ###
-###  Usage:    sigpi [ACTION] [TARGET]
+###  Usage:    SIGpoor [ACTION] [TARGET]
 ###
 ###        ACTION  
 ###                 install   install TARGET from current release
@@ -17,7 +17,7 @@
 ###                 shell     provide SIGpi env variables around a TARGET
 ###
 ###        TARGET
-###                 A SIGpi package or script
+###                 A SIGpoor package or script
 ###
 
 ###
@@ -27,11 +27,12 @@
 # SIGpi Directory tree
 SIGPI_ROOT=$HOME/SIG
 SIGPI_SOURCE=$SIGPI_ROOT/source
-SIGPI_HOME=$SIGPI_ROOT/SIGpi
+SIGPI_HOME=$SIGPI_ROOT/SIGpoor
 SIGPI_ETC=$SIGPI_ROOT/etc
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
 SIGPI_PACKAGES=$SIGPI_HOME/packages
 SIGPI_DEBS=$SIGPI_HOME/debs
+SIGPI_AX25FILES=$SIGPI_HOME/templates/ax25
 
 # SIGpi Install Support files
 SIGPI_INSTALLER=$SIGPI_ETC/INSTALL_CONFIG
