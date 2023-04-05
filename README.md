@@ -4,13 +4,13 @@ ALPHA
 
 ## Introduction
 
-Simple RPi 2/3 packet (ax/25) and SDR server (RTLSDR and HackRF only) running on **Raspberry Pi OS Lite (32-bit)**
+Simple Packet Radio (AX.25) and SDR server for RPi2/3 running **Raspberry Pi OS Lite (32-bit)**
+RTLSDR and HackRF installed by default with the option to run RTL-TCP or SoapySDR server
+software on startup. Install available for other well known SDRs.
 
 ## Installation
 
 - Login as pi 
-
-then 
 
 ```
 sudo apt update && sudo apt upgrade
@@ -24,9 +24,6 @@ cd SIGpoor
 
  whereas:
             CALLSIGN if using Packet
-
-
-During installation you will have the option to run either RTL-TCP or SoapySDR server on startup 
 
 ## Release Notes
 * [over here](RELEASE_NOTES.md)
