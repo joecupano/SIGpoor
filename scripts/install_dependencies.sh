@@ -46,7 +46,6 @@ sudo apt-get install -y swig
 sudo apt-get install -y avahi-daemon
 sudo apt-get install -y libavahi-client-dev
 sudo apt-get install -y libusb-1.0-0-dev
-sudo apt-get install -y python-dev
 sudo apt-get install -y python3-dev
 
 echo -e "${SIGPI_BANNER_COLOR}"
