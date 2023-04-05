@@ -144,7 +144,7 @@ select_tncdevices() {
 
 select_packetmode() {
     FUN=$(whiptail --title "AX.25 Configure" --clear --checklist --separate-output \
-        "Choose desired AX.25 setting" 20 80 12 OFF \
+        "Choose desired AX.25 setting" 20 80 12 \
         "no-ax25" "No AX.25 support " OFF \
         "simple-ax25" "ax0 interface only " OFF \
         "network-ax25" "ax0 plus AXIP support " OFF \
@@ -164,7 +164,7 @@ select_packetmode() {
 select_usefultools() {
     FUN=$(whiptail --title "Optional Tools" --clear --checklist --separate-output \
         "Only select these tools if you know you will need them" 24 120 12 \
-        "dump1090" " Mode S decoder" OFF \
+        "dump1090" "Mode S decoder" OFF \
         "hamlib" "Ham Radio Control Libraries 4.5.3 " OFF \
         "kismet" "A sniffer for Wi-Fi, Bluetooth, Zigbee, RF, and more " OFF \
         "linpac" "AX.25 kbd-kbd chat and PBBS program " OFF \
