@@ -5,4 +5,4 @@
 # name callsign alias paclen description
 #
 
-netrom CALLSIGN-N #ALIAS 255	145.030 MHz
+netrom CALLSIGN-1 #ALIAS 255	145.030 MHz

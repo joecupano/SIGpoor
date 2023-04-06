@@ -5,4 +5,4 @@
 # name callsign speed paclen window description
 #
 
-MYAXPORT	CALLSIGN-N		1200	255	2	144.503 MHz (1200  bps)
+MYAXPORT	CALLSIGN-1		1200	255	2	144.503 MHz (1200  bps)

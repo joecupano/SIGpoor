@@ -125,7 +125,7 @@ case "$1" in
         $SIGPI_PACKAGES/remove_desktop-post.sh
         ;;
     install )
-        source $SIGPI_PACKAGES/$SPKGSCRIPT install
+        source $SIGPI_PACKAGES/$SPKGSCRIPT install $1
         ;;
     build )
         source $SIGPI_PACKAGES/$SPKGSCRIPT build

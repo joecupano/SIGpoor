@@ -46,22 +46,24 @@ case "$1" in
         ## DEPENDENCIES
         sudo apt-get install -y ax25-tools ax25-apps libax25 libncurses5 telnet
         # ax25-node package is specific to Raspbian. Otherwise use node for other Linux OS
-        if [ "$SIGPI_OSNAME" =~ "Debian" ]; then
+        if [[ "$SIGPI_OSNAME" =~ .*"Raspbian".* ]]; then
             sudo apt-get install -y ax25-node  
         fi
 
         ## CONFIGURATION
-        sudo mkdir /etc/ax25/org
-        sudo mv /etc/ax25/* /etc/ax25/org
+        CALLSIGN=$2
+        sudo mkdir /etc/org
+        sudo mkdir /etc/org/ax25
+        sudo mv /etc/ax25/* /etc/org/ax25
         sudo cp $SIGPI_AX25FILES/* /etc/ax25
-        sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/axports
-        sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/nrports
+        sudo sed -i "s/CALLSIGN/$CALLSIGN/g" /etc/ax25/axports
+        sudo sed -i "s/CALLSIGN/$CALLSIGN/g" /etc/ax25/nrports
         
-        sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/ax25d.conf
-        sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/ax25ipd.conf
+        sudo sed -i "s/CALLSIGN/$CALLSIGN/g" /etc/ax25/ax25d.conf
+        sudo sed -i "s/CALLSIGN/$CALLSIGN/g" /etc/ax25/ax25ipd.conf
         sudo sed -i "s/ALIAS/$CALLSIGN/g" /etc/ax25/ax25d.conf     
 
-        sudo sed -i "s/CALLSIGN-N/$STATION/g" /etc/ax25/node.conf
+        sudo sed -i "s/CALLSIGN/$CALLSIGN/g" /etc/ax25/node.conf
         sudo sed -i "s/CALLSIGN/$CALLSIGN/g" /etc/ax25/node.perms
         
         echo "ax25-node       7373/tcp        # $CALLSIGN packet node" | sudo tee -a /etc/services
