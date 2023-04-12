@@ -1,0 +1,46 @@
+#
+# radioDASH.service 
+#
+# 20210320-2300
+#
+# DESCRIPTION
+#
+#     This is a systemd service file used for radioDASH_server.py on startup.
+#
+#
+# STOP THE SERVICE
+#
+#     ./radioDASH.sh stop
+#
+# START THE SERVICE
+#
+#     ./radioDASH.sh start
+#
+# REMOVE THE SERVICE
+#
+#     ./radioDASH.sh remove
+#
+
+
+##
+## INIT VARIABLES 
+##
+
+##
+## SCRIPT
+##
+
+[Unit]
+Description=radioDASH Web Server
+After=multi-user.target
+
+[Service]
+User=pi
+PIDFile=/run/radioDASH.pid
+WorkingDirectory=/home/pi/radiodash
+ExecStart=/home/pi/radiodash/radioDASH_server.py
+ExecStop=-/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile /run/radioDASH.pid
+TimeoutStopSec=5
+
+[Install]
+WantedBy=multi-user.target
